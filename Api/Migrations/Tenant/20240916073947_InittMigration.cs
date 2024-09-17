@@ -2,27 +2,21 @@
 
 #nullable disable
 
-namespace Api.Migrations
+namespace Api.Migrations.Tenant
 {
     /// <inheritdoc />
-    public partial class AddTenant : Migration
+    public partial class InittMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
-                name: "TenantId",
-                table: "Products",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "");
-
             migrationBuilder.CreateTable(
                 name: "Tenants",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ConnectionString = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -35,10 +29,6 @@ namespace Api.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Tenants");
-
-            migrationBuilder.DropColumn(
-                name: "TenantId",
-                table: "Products");
         }
     }
 }

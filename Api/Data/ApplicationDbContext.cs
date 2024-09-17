@@ -20,6 +20,15 @@ public class ApplicationDbContext: DbContext
         base.OnModelCreating(modelBuilder);
     }
 
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        if (!string.IsNullOrEmpty(_currentTenantService.ConnectionString))
+        {
+            optionsBuilder.UseSqlServer(_currentTenantService.ConnectionString);
+        }
+        base.OnConfiguring(optionsBuilder);
+    }
+
     public override int SaveChanges()
     {
         SetTenant();
@@ -47,5 +56,4 @@ public class ApplicationDbContext: DbContext
     }
 
     public DbSet<Product> Products => Set<Product>();
-    public DbSet<Tenant> Tenants => Set<Tenant>();
 }

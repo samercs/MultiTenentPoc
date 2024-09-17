@@ -6,6 +6,7 @@ namespace Api.Services;
 public class CurrentTenantService(TenantDbContext context): ICurrentTenantService
 {
     public string? TenantId { get; set; }
+    public string? ConnectionString { get; set; }
     public async Task<bool> SetTenant(string tenantId)
     {
         //check if tenant is valid
@@ -15,6 +16,7 @@ public class CurrentTenantService(TenantDbContext context): ICurrentTenantServic
             throw new TenantNotFoundException(tenantId);
         }
         TenantId = tenantId;
+        ConnectionString = tenant.ConnectionString;
         return true;
     }
 }

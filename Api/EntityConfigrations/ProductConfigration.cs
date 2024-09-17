@@ -10,8 +10,5 @@ public class ProductConfigration: IEntityTypeConfiguration<Product>
     {
         builder.Property(i => i.TenantId)
             .IsRequired();
-        builder.HasOne(i => i.Tenant)
-            .WithMany()
-            .IsRequired();
     }
 }
